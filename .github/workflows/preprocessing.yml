@@ -1,0 +1,42 @@
+name: Run Preprocessing
+
+on:
+  push:
+    paths:
+      - 'preprocessing/**'
+  pull_request:
+    paths:
+      - 'preprocessing/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install -r preprocessing/requirements.txt
+
+    - name: Run Preprocessing Script
+      run: |
+        python preprocessing/automate_Fazlu-Rachman.py
+
+    - name: Commit Preprocessed Data
+      run: |
+        git config --local user.name "Fazlu601"
+        git config --local user.email "fazrlu9575@gmail.com"
+        git add telco_churn_preprocessing/*
+        git commit -m "Update preprocessed dataset [CI]"
+        git push
