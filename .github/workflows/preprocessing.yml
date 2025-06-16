@@ -40,7 +40,7 @@ jobs:
     - name: Commit Preprocessed Data
       run: |
         git config --local user.name "Fazlu601"
-        git config --local user.email "fazlu9575@gmail.com"
+        git config --local user.email "fazrlu9575@gmail.com"
         if [ -d "telco_churn_preprocessing" ]; then
           git add telco_churn_preprocessing/*
           git commit -m "Update preprocessed dataset [CI]" || echo "No changes to commit"
